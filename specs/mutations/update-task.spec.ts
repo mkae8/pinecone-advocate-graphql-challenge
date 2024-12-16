@@ -1,5 +1,5 @@
 import { updateTask } from "@/graphql/resolvers/mutations/update-task";
-import { GraphQLResolveInfo } from "graphql";
+
 
 jest.mock("../../models/Task", () => ({
   taskModel: {
@@ -18,11 +18,11 @@ jest.mock("../../models/Task", () => ({
 
 describe("Update Task", () => {
   it("Should successfully update ", async () => {
-    const result = await updateTask!(
-      {},
+    const result = await updateTask(
+      null,
       { _id: "1", taskName: "Hello", isDone: false, priority: 1 },
-      {},
-      {} as GraphQLResolveInfo
+   
+  
     );
     expect(result).toEqual({
       _id: "1",
@@ -34,11 +34,10 @@ describe("Update Task", () => {
   });
   it("should failed to update task", async () => {
     try {
-      await updateTask!(
-        {},
+      await updateTask(
+        null,
         { _id: "1", taskName: "Hello", isDone: false, priority: 2 },
-        {},
-        {} as GraphQLResolveInfo
+
       );
     } catch (error) {
       expect(error).toEqual(new Error("Can't update the task"));

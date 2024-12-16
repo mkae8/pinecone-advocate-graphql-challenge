@@ -1,8 +1,7 @@
 import { taskModel } from "@/models/task";
-import { QueryResolvers } from "@/generated";
 
 export const getDoneTaskLists =
-  async (p0: {}, p1: {}, p2: {}, p3: unknown) => {
+  async () => {
     try {
       return await taskModel.find({ isDone: true });
     } catch (error) {

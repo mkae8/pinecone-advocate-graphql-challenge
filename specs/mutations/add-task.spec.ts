@@ -1,5 +1,4 @@
 import { addTask } from "@/graphql/resolvers/mutations/add-task";
-import { GraphQLResolveInfo } from "graphql";
 
 jest.mock("../../models/task", () => ({
   taskModel: {
@@ -17,11 +16,9 @@ jest.mock("../../models/task", () => ({
 }));
 describe("Add Task Mutation", () => {
   it("Should successfully create task", async () => {
-    const result = await addTask!(
-      {},
+    const result = await addTask(
+      null,
       { taskName: "Hello", isDone: false, priority: 1 },
-      {},
-      {} as GraphQLResolveInfo
     );
 
     expect(result).toEqual({
@@ -34,11 +31,9 @@ describe("Add Task Mutation", () => {
   });
   it("Should unsuccessfully create task", async () => {
     try {
-      await addTask!(
-        {},
+      await addTask(
+        null,
         { taskName: "Hello", isDone: false, priority: 1 },
-        {},
-        {} as GraphQLResolveInfo
       );
     } catch (error) {
       expect(error).toEqual(new Error("Can not add the task"));

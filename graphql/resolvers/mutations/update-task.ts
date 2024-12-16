@@ -2,7 +2,7 @@
 import { taskModel } from "@/models/task";
 
 export const updateTask = async (
-_: unknown, { _id, priority, isDone, taskName }: { _id: string; priority: number; isDone: boolean; taskName: string; }, p0: {}, p1: unknown) => {
+_: unknown, { _id, priority, isDone, taskName }: { _id: string; priority: number; isDone: boolean; taskName: string; }) => {
   try {
     const updatedTask = await taskModel.findOneAndUpdate(
       { _id },

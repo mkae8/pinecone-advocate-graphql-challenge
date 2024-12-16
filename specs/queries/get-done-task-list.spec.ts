@@ -14,18 +14,13 @@ jest.mock("../../models/task", () => ({
           createdAt: expect.any(Date),
         },
       ])
-      .mockRejectedValueOnce({}),
+      .mockRejectedValueOnce(new Error("Can't get finished task lists")), 
   },
 }));
 
 describe("getDoneTaskLists", () => {
   it("should return all finished tasks successfully", async () => {
-    const result = await getDoneTaskLists!(
-      {},
-      {},
-      {},
-      {} as GraphQLResolveInfo
-    );
+    const result = await getDoneTaskLists(); 
     expect(result).toEqual([
       {
         _id: "1",
@@ -36,9 +31,10 @@ describe("getDoneTaskLists", () => {
       },
     ]);
   });
-  it("should can't get finished all tasks", async () => {
+
+  it("should not get finished tasks if the query fails", async () => {
     try {
-      await getDoneTaskLists!({}, {}, {}, {} as GraphQLResolveInfo);
+      await getDoneTaskLists();
     } catch (error) {
       expect(error).toEqual(new Error("Can't get finished task lists"));
     }
