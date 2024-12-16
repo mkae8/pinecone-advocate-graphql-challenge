@@ -1,30 +1,23 @@
-import mongoose from "mongoose";
-const { Schema, model } = mongoose;
+import { Schema, model, models } from "mongoose";
 
-const TaskSchema = new Schema({
-  taskName: {
-    type: String,
-    required: true,
-  },
-  isDone: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-  priority: {
-    type: Number,
-    required: true,
-  },
-  createdAt: {
-    type: Date,
-    required: true,
-    default: Date.now,
-  },
-  updatedAt: {
-    type: Date,
-    required: true,
-    default: Date.now,
-  },
-});
+export type Task = {
+  _id: string;
+  taskName: string;
+  isDone: boolean;
+  priority: number;
+  createdAt: Date;
+  updatedAt: Date;
+};
 
-export const taskModel = mongoose.models.Task || model("Task", TaskSchema);
+const taskSchema = new Schema<Task>(
+  {
+    taskName: { type: String, required: true },
+    isDone: { type: Boolean, default: false },
+    priority: { type: Number, required: true },
+    // createdAt: { type: Date, required: true, default: Date.now },
+    // updatedAt: { type: Date, required: true, default: Date.now },
+  },
+  { timestamps: true }
+);
+export const taskModel = models.Task || model<Task>("Task", taskSchema);
+ 

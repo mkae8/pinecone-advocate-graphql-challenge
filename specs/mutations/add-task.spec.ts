@@ -1,55 +1,45 @@
 import { addTask } from "@/graphql/resolvers/mutations/add-task";
+import { GraphQLResolveInfo } from "graphql";
 
-jest.mock("../../models/Task", () => ({
+jest.mock("../../models/task", () => ({
   taskModel: {
     create: jest
       .fn()
-      .mockResolvedValueOnce({
-        taskName: "hi",
-        priority: 1,
+      .mockReturnValueOnce({
+        _id: "123",
+        taskName: "Hello",
         isDone: false,
+        priority: 1,
         createdAt: new Date(),
-        updatedAt: new Date(),
       })
       .mockRejectedValueOnce({}),
   },
 }));
-
 describe("Add Task Mutation", () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it("Should call addTask mutation with taskName, IsDone and priority input successfully", async () => {
-    const taskModel = require("../../models/Task").taskModel;
-    taskModel.create.mockResolvedValueOnce({
-      taskName: "hi",
-      priority: 1,
-      isDone: false,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
-
-    const taskName = "hi";
-    const priority = 1;
-
-    const result = await addTask({}, { taskName, priority });
+  it("Should successfully create task", async () => {
+    const result = await addTask!(
+      {},
+      { taskName: "Hello", isDone: false, priority: 1 },
+      {},
+      {} as GraphQLResolveInfo
+    );
 
     expect(result).toEqual({
-      taskName: "hi",
-      priority: 1,
+      _id: "123",
+      taskName: "Hello",
       isDone: false,
+      priority: 1,
       createdAt: expect.any(Date),
-      updatedAt: expect.any(Date),
     });
   });
-
-  it("Should call addTask mutation with taskName and priority input with error", async () => {
-    const taskName = "Test Task";
-    const priority = 2;
-
+  it("Should unsuccessfully create task", async () => {
     try {
-      await addTask({}, { taskName, priority });
+      await addTask!(
+        {},
+        { taskName: "Hello", isDone: false, priority: 1 },
+        {},
+        {} as GraphQLResolveInfo
+      );
     } catch (error) {
       expect(error).toEqual(new Error("Can not add the task"));
     }
