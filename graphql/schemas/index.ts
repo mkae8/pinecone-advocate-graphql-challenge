@@ -1,7 +1,7 @@
 import { gql } from "graphql-tag";
 
 export const typeDefs = gql`
-  type Query {
+  type Query {git a
     getAllTasks: [Task]
     helloQuery: String
     getDoneTaskLists: [Task]
