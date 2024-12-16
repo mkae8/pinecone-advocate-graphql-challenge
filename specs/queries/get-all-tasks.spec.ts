@@ -20,7 +20,7 @@ jest.mock("../../models/task", () => ({
 
 describe("getAllTasks", () => {
   it("should return all tasks successfully", async () => {
-    const result = await getAllTasks!({}, {}, {}, {} as GraphQLResolveInfo);
+    const result = await getAllTasks!({}, {} as GraphQLResolveInfo);
     expect(result).toEqual([
       {
         _id: "1",
@@ -33,7 +33,7 @@ describe("getAllTasks", () => {
   });
   it("should can't get all tasks", async () => {
     try {
-      await getAllTasks!({}, {}, {}, {} as GraphQLResolveInfo);
+      await getAllTasks!({}, {} as GraphQLResolveInfo);
     } catch (error) {
       expect(error).toEqual(new Error("Can't get all tasks"));
     }
