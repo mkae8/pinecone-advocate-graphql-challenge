@@ -4,6 +4,7 @@ import { addTask } from "./mutations/add-task";
 import { updateTask } from "./mutations/update-task";
 import { getAllTasks } from "./queries/get-all-tasks";
 import { getDoneTaskLists } from "./queries/get-done-task-lists";
+import { deleteTask } from "./mutations/delete-task";
 
 export const resolvers = {
   Query: {
@@ -12,6 +13,7 @@ export const resolvers = {
     getDoneTaskLists,
   },
   Mutation: {
+    deleteTask,
     sayHello,
     addTask,
     updateTask,

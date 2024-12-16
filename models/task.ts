@@ -20,4 +20,3 @@ const taskSchema = new Schema<Task>(
   { timestamps: true }
 );
 export const taskModel = models.Task || model<Task>("Task", taskSchema);
- 
