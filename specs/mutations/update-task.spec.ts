@@ -1,7 +1,6 @@
 import { updateTask } from "@/graphql/resolvers/mutations/update-task";
 
-
-jest.mock("../../models/Task", () => ({
+jest.mock("../../models/task", () => ({
   taskModel: {
     findOneAndUpdate: jest
       .fn()
@@ -17,13 +16,13 @@ jest.mock("../../models/Task", () => ({
 }));
 
 describe("Update Task", () => {
-  it("Should successfully update ", async () => {
-    const result = await updateTask(
-      null,
-      { _id: "1", taskName: "Hello", isDone: false, priority: 1 },
-   
-  
-    );
+  it("Should successfully update", async () => {
+    const result = await updateTask(null, {
+      _id: "1",
+      taskName: "Hello",
+      isDone: false,
+      priority: 1,
+    });
     expect(result).toEqual({
       _id: "1",
       taskName: "Hello",
@@ -32,15 +31,17 @@ describe("Update Task", () => {
       updatedAt: expect.any(Date),
     });
   });
-  it("should failed to update task", async () => {
-    try {
-      await updateTask(
-        null,
-        { _id: "1", taskName: "Hello", isDone: false, priority: 2 },
 
-      );
+  it("Should failed to update task", async () => {
+    try {
+      await updateTask(null, {
+        _id: "1",
+        taskName: "Hello",
+        isDone: false,
+        priority: 2,
+      });
     } catch (error) {
       expect(error).toEqual(new Error("Can't update the task"));
     }
   });
-})
+});

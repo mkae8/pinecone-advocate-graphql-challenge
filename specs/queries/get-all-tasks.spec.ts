@@ -1,5 +1,4 @@
 import { getAllTasks } from "@/graphql/resolvers/queries/get-all-tasks";
-import { GraphQLResolveInfo } from "graphql";
 
 jest.mock("../../models/task", () => ({
   taskModel: {
@@ -11,7 +10,6 @@ jest.mock("../../models/task", () => ({
           taskName: "Task 1",
           isDone: false,
           priority: 2,
-          createdAt: expect.any(Date),
         },
       ])
       .mockRejectedValueOnce({}),
@@ -27,7 +25,6 @@ describe("getAllTasks", () => {
         taskName: "Task 1",
         isDone: false,
         priority: 2,
-        createdAt: expect.any(Date),
       },
     ]);
   });
