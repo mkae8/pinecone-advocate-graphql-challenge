@@ -1,5 +1,4 @@
-import { getDoneTaskLists } from "../../graphql/resolvers/queries/get-done-tasks-lists";
-import { GraphQLResolveInfo } from "graphql";
+import { getDoneTaskLists } from "../../graphql/resolvers/queries/get-done-task-lists";
 
 jest.mock("../../models/task", () => ({
   taskModel: {

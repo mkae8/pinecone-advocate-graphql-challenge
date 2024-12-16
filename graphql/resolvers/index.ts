@@ -3,7 +3,7 @@ import { helloQuery } from "./queries/hello-query";
 import { addTask } from "./mutations/add-task";
 import { updateTask } from "./mutations/update-task";
 import { getAllTasks } from "./queries/get-all-tasks";
-import { getDoneTaskLists } from "./queries/get-done-tasks-lists";
+import { getDoneTaskLists } from "./queries/get-done-task-lists";
 
 export const resolvers = {
   Query: {
