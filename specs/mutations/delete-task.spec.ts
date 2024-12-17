@@ -4,21 +4,17 @@ jest.mock("../../models/task", () => ({
   taskModel: {
     findByIdAndDelete: jest
       .fn()
-      .mockResolvedValueOnce({
-        _id: "123",
-      })
+      .mockResolvedValueOnce({ _id: "123" })
       .mockRejectedValueOnce({}),
   },
 }));
 
 describe("Delete task", () => {
-  it("Delete task sucess", async () => {
+  it("success", async () => {
     const result = await deleteTask(null, { _id: "123" });
-    expect(result).toEqual({
-      _id: "123",
-    });
+    expect(result).toEqual({ _id: "123" });
   });
-  it("Can't delete task", async () => {
+  it("failed", async () => {
     try {
       await deleteTask(null, { _id: "123" });
     } catch (error) {
